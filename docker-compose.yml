@@ -30,3 +30,4 @@ services:
     tty: true
 volumes:
   db:
+  mongo_db:

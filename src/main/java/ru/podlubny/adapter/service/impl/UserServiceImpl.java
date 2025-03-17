@@ -16,6 +16,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserInfoDto getUser() {
+
         UserEntity userEntity = UserEntity.builder().name("Anton")
                 .surname("Антонов")
                 .patronymic("Antonovich")
@@ -27,5 +28,10 @@ public class UserServiceImpl implements UserService {
 
 
         return userInfoMapper.map(userEntity);
+    }
+
+    @Override
+    public String createUser() {
+        return null;
     }
 }

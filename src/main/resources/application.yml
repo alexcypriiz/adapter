@@ -3,3 +3,8 @@ server:
 spring:
   application:
     name: adapter
+  data:
+    mongodb:
+      user: admin
+      password:
+      uri: mongodb://localhost:27017/larder
