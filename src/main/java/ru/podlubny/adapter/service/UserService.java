@@ -2,9 +2,11 @@ package ru.podlubny.adapter.service;
 
 import ru.podlubny.adapter.dto.UserInfoDto;
 
+import java.util.UUID;
+
 public interface UserService {
 
-    UserInfoDto getUser();
+    UserInfoDto getUser(UUID id);
 
-    String createUser();
+    UUID createUser(UserInfoDto userInfoDto);
 }

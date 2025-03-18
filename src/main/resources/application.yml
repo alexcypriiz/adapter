@@ -5,6 +5,5 @@ spring:
     name: adapter
   data:
     mongodb:
-      user: admin
-      password:
-      uri: mongodb://localhost:27017/larder
+      uri: mongodb://admin:mypass@localhost:27017/admin
+      database: larder

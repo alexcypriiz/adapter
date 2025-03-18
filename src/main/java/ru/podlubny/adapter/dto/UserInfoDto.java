@@ -6,7 +6,6 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-@AllArgsConstructor
 public class UserInfoDto {
     private String name;
 
@@ -14,11 +13,11 @@ public class UserInfoDto {
 
     private String patronymic;
 
-    private String phoneNumber;
+    private Long phoneNumber;
 
     private String email;
 
-    private String gender;
+    private GenderEnum gender;
 
-    private String birthDate;
+    private LocalDate birthDate;
 }
