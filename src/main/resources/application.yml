@@ -3,7 +3,7 @@ server:
 spring:
   application:
     name: adapter
-  data:
-    mongodb:
-      uri: mongodb://admin:mypass@localhost:27017/admin
-      database: larder
+#  data:
+#    mongodb:
+#      uri: mongodb://admin:mypass@localhost:27017/admin
+#      database: larder

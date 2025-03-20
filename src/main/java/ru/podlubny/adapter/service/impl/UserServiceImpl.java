@@ -4,12 +4,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.podlubny.adapter.dto.UserInfoDto;
+import ru.podlubny.adapter.dto.user.UserInfoDto;
 import ru.podlubny.adapter.entity.UserEntity;
 import ru.podlubny.adapter.mapper.UserInfoMapper;
 import ru.podlubny.adapter.repository.UserRepository;
 import ru.podlubny.adapter.service.UserService;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -36,5 +38,25 @@ public class UserServiceImpl implements UserService {
         userEntity.setId(id.toString());
         userRepository.save(userEntity);
         return id;
+    }
+
+    @Override
+    public UUID updateUser(UserInfoDto userInfoDto, UUID id) {
+        UserEntity userEntity = userInfoMapper.map(userInfoDto);
+        userEntity.setId(id.toString());
+        userRepository.save(userEntity);
+        return id;
+    }
+
+    @Override
+    public UUID deleteUser(UUID id) {
+        userRepository.deleteById(id.toString());
+        return id;
+    }
+
+    @Override
+    public List<UserEntity> getUsers() {
+        return Optional.of(userRepository.findAll())
+                .orElseThrow(RuntimeException::new);
     }
 }

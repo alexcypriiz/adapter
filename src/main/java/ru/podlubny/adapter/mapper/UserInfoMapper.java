@@ -1,7 +1,7 @@
 package ru.podlubny.adapter.mapper;
 
 import org.mapstruct.Mapper;
-import ru.podlubny.adapter.dto.UserInfoDto;
+import ru.podlubny.adapter.dto.user.UserInfoDto;
 import ru.podlubny.adapter.entity.UserEntity;
 
 @Mapper
