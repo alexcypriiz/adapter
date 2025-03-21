@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UUID createUser(UserInfoDto userInfoDto) {
+        log.info("Create user: {}", userInfoDto);
         UserEntity userEntity = userInfoMapper.map(userInfoDto);
         UUID id = UUID.randomUUID();
         userEntity.setId(id.toString());
@@ -42,6 +43,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UUID updateUser(UserInfoDto userInfoDto, UUID id) {
+        log.info("Update user [{}], [{}] ", id, userInfoDto);
         UserEntity userEntity = userInfoMapper.map(userInfoDto);
         userEntity.setId(id.toString());
         userRepository.save(userEntity);
@@ -50,6 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UUID deleteUser(UUID id) {
+        log.info("Delete user [{}]", id);
         userRepository.deleteById(id.toString());
         return id;
     }

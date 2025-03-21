@@ -7,5 +7,7 @@ import ru.podlubny.adapter.entity.UserEntity;
 @Mapper
 public interface UserInfoMapper {
     UserInfoDto map(UserEntity userEntity);
+
+
     UserEntity map(UserInfoDto userInfoDto);
 }
