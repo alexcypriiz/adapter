@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.podlubny.adapter.api.handler.error.ApiException;
+import ru.podlubny.adapter.api.handler.error.ErrorContainerEnum;
 import ru.podlubny.adapter.dto.holiday.ContactInfoDto;
 import ru.podlubny.adapter.dto.holiday.HolidayDto;
 import ru.podlubny.adapter.dto.holiday.HolidayWithContactsDTO;
@@ -30,7 +32,7 @@ public class HolidayServiceImpl implements HolidayService {
     public HolidayDto getHoliday(UUID id) {
         return holidayRepository.findById(String.valueOf(id))
                 .map(holidayMapper::map)
-                .orElseThrow(Exception::new);
+                .orElseThrow(() -> new ApiException(ErrorContainerEnum.HOLIDAY_NOT_FOUND));
     }
 
     @Override
@@ -46,7 +48,7 @@ public class HolidayServiceImpl implements HolidayService {
     @Override
     public List<HolidayEntity> getHoliday() {
         return Optional.of(holidayRepository.findAll())
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new ApiException(ErrorContainerEnum.HOLIDAY_NOT_FOUND));
     }
 
     @SneakyThrows

@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.podlubny.adapter.api.handler.error.ApiException;
+import ru.podlubny.adapter.api.handler.error.ErrorContainerEnum;
 import ru.podlubny.adapter.dto.user.UserInfoDto;
 import ru.podlubny.adapter.entity.UserEntity;
 import ru.podlubny.adapter.mapper.UserInfoMapper;
@@ -28,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.findById(String.valueOf(id))
                 .map(userInfoMapper::map)
-                .orElseThrow(Exception::new);
+                .orElseThrow(() -> new ApiException(ErrorContainerEnum.USER_NOT_FOUND));
     }
 
     @Override
@@ -44,6 +46,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UUID updateUser(UserInfoDto userInfoDto, UUID id) {
         log.info("Update user [{}], [{}] ", id, userInfoDto);
+        userRepository.findById(String.valueOf(id))
+                .map(userInfoMapper::map)
+                .orElseThrow(() -> new ApiException(ErrorContainerEnum.USER_NOT_FOUND));
+
         UserEntity userEntity = userInfoMapper.map(userInfoDto);
         userEntity.setId(id.toString());
         userRepository.save(userEntity);
@@ -53,6 +59,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UUID deleteUser(UUID id) {
         log.info("Delete user [{}]", id);
+        userRepository.findById(String.valueOf(id))
+                .map(userInfoMapper::map)
+                .orElseThrow(() -> new ApiException(ErrorContainerEnum.USER_NOT_FOUND));
+
         userRepository.deleteById(id.toString());
         return id;
     }
@@ -60,6 +70,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserEntity> getUsers() {
         return Optional.of(userRepository.findAll())
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new ApiException(ErrorContainerEnum.USER_NOT_FOUND));
     }
 }
