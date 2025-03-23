@@ -10,7 +10,10 @@ import java.util.List;
 @Repository
 public interface HolidayRepository extends MongoRepository<HolidayEntity, String> {
 
-    @Query("{ 'people.name': ?0, 'people.surname': ?1, 'people.phone': ?2, 'dataEnd': { $gt: new Date() } }")
+    @Query("{ '$or': [ " +
+            "{ 'people.name': ?0, 'people.surname': ?1, 'people.phone': ?2, 'dataEnd': { $gt: new Date() } }, " +
+            "{ 'people': { $size: 0 } } " +
+            "] }")
     List<HolidayEntity> findByPeopleAndDataEndAfter(
             String name,
             String surname,
